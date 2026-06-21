@@ -158,7 +158,9 @@ string Tabs(short HowManyTabs)
 stGameResult PlayGame(short HowManyRounds)
 {
 	stRoundInfo RoundInfo;
+
 	short Player1Wins = 0, ComputerWins = 0, DrawTimes = 0;
+
 	for (short GameRounds = 1; GameRounds <= HowManyRounds;GameRounds++)
 	{
 		cout << "\nRound [" << GameRounds << "] Begins\n";

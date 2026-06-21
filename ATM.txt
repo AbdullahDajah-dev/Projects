@@ -1,0 +1,173 @@
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <cstdlib>
+using namespace std;
+
+enum enOptions { Exit = 0, Deposite, Withdraw };
+
+int ReadPositiveNumber(string msg)
+{
+	int number;
+	do
+	{
+		cout << msg;
+		cin >> number;
+	} while (number <= 0);
+	return number;
+}
+
+int ReadPin(string msg)
+{
+	int PIN;
+	cout << msg;
+	cin >> PIN;
+	cout << endl;
+	return PIN;
+}
+
+bool CheckPIN(int pin)
+{
+	int attempts = 3;
+	while (pin != 1234 && attempts > 1)
+	{
+		attempts--;
+		pin = ReadPin("Wrong PIN, try " + to_string(attempts) + " again: ");
+	}
+	return (pin == 1234);
+}
+
+bool UserAccess(int pin, int& balance)
+{
+	if (CheckPIN(pin))
+	{
+		cout << "Balance: " << balance << endl;
+		return true;
+	}
+	else
+	{
+		system("color 4f");
+		cout << "Card locked, visit your branch.\n";
+		return false;
+	}
+}
+
+int Buttons(string msg)
+{
+	int button_id;
+	cout << msg << endl;
+	cin >> button_id;
+
+	return button_id;
+}
+
+enOptions ButtonList()
+{
+	int button;
+	do
+	{
+		cout << endl;
+		button = Buttons("(1) Deposite   (2) Withdraw   (0) Exit");
+	} while (button < 0 || button > 2);
+	return (enOptions)button;
+}
+
+string HandleUserChoice(enOptions user_choice)
+{
+	switch (user_choice)
+	{
+	case enOptions::Deposite:
+		return "Please enter the amount to deposite: ";
+	case enOptions::Withdraw:
+		return "How much to withdraw? ";
+	case enOptions::Exit:
+		return "";
+	}
+}
+
+string WithdrawProcess(int& current_balance, int amount)
+{
+	if (amount > current_balance)
+	{
+		system("color 4f");
+		return "Declined: Insufficient funds.Max available :" + to_string(current_balance);
+	}
+	else
+	{
+		system("color 2f");
+		current_balance -= amount;
+		return "Withdrawal successful! New Balance:" + to_string(current_balance);
+	}
+}
+
+string DepositeProcess(int& current_balance, int amount)
+{
+	while (amount < 1)
+	{
+		system("color 4f");
+		cout << "InValid Amount. Try again: ";
+		cin >> amount;
+	}
+	system("color 2f");
+	current_balance += amount;
+	return "SuccessFully. new balance : " + to_string(current_balance);
+}
+
+void Transactions(enOptions options, int& Balance)
+{
+
+	int amount = ReadPositiveNumber("Enter amount? ");
+	if (options == enOptions::Withdraw)
+	{
+		string withdraw = WithdrawProcess(Balance, amount);
+		cout << "\n" << withdraw << endl;
+	}
+	else if (options == enOptions::Deposite)
+	{
+		string deposite = DepositeProcess(Balance, amount);
+		cout << "\n" << deposite << endl;
+	}
+
+}
+
+void Start()
+{
+	char Start = 'Y';
+	int Balance = 7500;
+	do
+	{
+		system("cls");
+		system("color 0F");
+		int pin = ReadPin("Enter PIN? ");
+		if (!UserAccess(pin, Balance))
+			break;
+
+		enOptions button = ButtonList();
+
+		string handle_options = HandleUserChoice(button);
+
+		cout << "\n" << handle_options << endl;
+		if (button == enOptions::Exit)
+			break;
+		Transactions(button, Balance);
+		cout << "\n\nDo you want to do another process? y/n ";
+		cin >> Start;
+	} while (Start == 'y' || Start == 'Y');
+	cout << "\nThank you for using our services." << endl;
+}
+
+
+
+int main()
+{
+
+
+	Start();
+
+
+
+
+
+
+	return 0;
+}
