@@ -125,9 +125,9 @@ enWinner WhoWonTheGame(short Player1Wins, short ComputerWins)
 void PrintRoundInfo(stRoundInfo RoundInfo)
 {
 	cout << "\n__________ Round [" << RoundInfo.RoundNumber << "] __________\n\n";
-	cout << "Player1 Choice: " << ChoiceName(RoundInfo.Player1Choice) << endl;
-	cout << "Computer Choice: " << ChoiceName(RoundInfo.ComputeChoice) << "\n";
-	cout << "Round Winner: [" << RoundInfo.WinnerName << "] \n";
+	cout << "Player1 Choice  : " << ChoiceName(RoundInfo.Player1Choice) << endl;
+	cout << "Computer Choice : " << ChoiceName(RoundInfo.ComputeChoice) << "\n";
+	cout << "Round Winner    : [" << RoundInfo.WinnerName << "] \n";
 	cout << "_____________________________\n" << endl;
 }
 
