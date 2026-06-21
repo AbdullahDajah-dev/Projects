@@ -2,6 +2,7 @@
 #include <cmath>
 #include <string>
 #include <cstdlib>
+#include <ctime>
 using namespace std;
 
 enum enGameChoice {Rock = 1, Paper, Scissor};
