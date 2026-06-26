@@ -220,7 +220,7 @@ void AskAndCorrectAnswer(stQuizz &Quizz)
 	for (short QuestionNumber = 0;QuestionNumber < Quizz.NumberOfQuestions;QuestionNumber++)
 	{
 		PrintQuestion(Quizz, QuestionNumber);
-		Quizz.QuestionList[QuestionNumber].USerGuess = ReadUserGuess();
+		Quizz.QuestionList[QuestionNumber].USerGuess = MyLib::ReadNumber();
 		CorrectTheAnswer(Quizz, QuestionNumber);
 
 	}
@@ -312,9 +312,9 @@ void PlayMath()
 {
 	stQuizz Quizz;
 
-	Quizz.NumberOfQuestions = ReadHowManyQuestions();
-	Quizz.QuestionLevel = QuestionLevel();
-	Quizz.Operation = OperationType();
+	Quizz.NumberOfQuestions = MyLib::ReadNumberFromTo("How Many Rounds 1 to 10? ", 1, 10);
+	Quizz.QuestionLevel = (enQuestionLevel)MyLib::ReadNumberFromTo("Chose QLevel -> [1]Easy  [2]Medium  [3]Hard  [4]Mix ? ", 1, 4);
+	Quizz.Operation = (enOperationType)MyLib::ReadNumberFromTo("Chose OpType -> [1]Add  [2]Subtract  [3]Multi  [4]Divide  [5]MixOp ? ", 1, 5);
 
 	GenerateQuizzQuestions(Quizz);
 	AskAndCorrectAnswer(Quizz);
